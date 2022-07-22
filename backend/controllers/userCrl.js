@@ -54,13 +54,9 @@ const getUser = async (req, res) => {
     user: { type: requesterType },
   } = req;
 
-  console.log(email, userId, userName);
-
   const user = await User.findOne({
     $or: [{ firstName: userName }, { sid: userId }, { email: email }],
   });
-
-  console.log(user);
 
   if (!user) {
     throw new NotFoundError(`No user found`);
@@ -78,4 +74,20 @@ const getUser = async (req, res) => {
   });
 };
 
-module.exports = { addUser, getUser };
+const getAllUsers = async (req, res) => {
+  const {
+    user: { type: requesterType },
+  } = req;
+
+  if (requesterType === "Student") {
+    throw new NotAllowedError("You're not authorized access ");
+  }
+
+  const users = await User.find({ type: "Student" });
+  res.status(StatusCodes.OK).json(users);
+};
+
+
+
+
+module.exports = { addUser, getUser, getAllUsers };
