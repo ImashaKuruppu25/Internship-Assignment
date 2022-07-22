@@ -94,15 +94,6 @@ const updateUser = async (req, res) => {
     params: { id: userId },
   } = req;
 
-  console.log(
-    firstName,
-    lastName,
-    email,
-    dateOfBirth,
-    mobile,
-    status,
-    password
-  );
 
   //get user details
   const user = await User.findOne({
