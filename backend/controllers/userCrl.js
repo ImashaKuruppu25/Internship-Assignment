@@ -1,6 +1,8 @@
 const User = require("../models/userModel");
 const { StatusCodes } = require("http-status-codes");
 const nodemailer = require("nodemailer");
+const NotAllowedError = require("../errors/NotAllowedError");
+const NotFoundError = require("../errors/NotFoundError");
 
 const addUser = async (req, res) => {
   const {
@@ -93,7 +95,6 @@ const updateUser = async (req, res) => {
     body: { firstName, lastName, email, dateOfBirth, mobile, status, password },
     params: { id: userId },
   } = req;
-
 
   //get user details
   const user = await User.findOne({

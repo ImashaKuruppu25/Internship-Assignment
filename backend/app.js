@@ -4,6 +4,7 @@ require("dotenv").config();
 const connectDB = require("./db/connect");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
+const noteRoute = require("./routes/noteRoute");
 const { authenticateAdmin } = require("./middleware/authenticater");
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 // routes
 app.use("/api/user", authenticateAdmin, userRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/note", noteRoute);
 
 const start = async () => {
   port = process.env.PORT;
