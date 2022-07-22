@@ -45,6 +45,7 @@ const addUser = async (req, res) => {
     name: user.name,
     email: user.email,
     type: user.type,
+    status: user.status,
   });
 };
 
@@ -87,7 +88,54 @@ const getAllUsers = async (req, res) => {
   res.status(StatusCodes.OK).json(users);
 };
 
+const updateUser = async (req, res) => {
+  const {
+    body: { firstName, lastName, email, dateOfBirth, mobile, status, password },
+    params: { id: userId },
+  } = req;
 
+  console.log(
+    firstName,
+    lastName,
+    email,
+    dateOfBirth,
+    mobile,
+    status,
+    password
+  );
 
+  //get user details
+  const user = await User.findOne({
+    _id: userId,
+  });
 
-module.exports = { addUser, getUser, getAllUsers };
+  if (!user) {
+    throw new NotFoundError(`No user found with ID ${userId}`);
+  }
+
+  if (user.email === email) {
+    delete req.body.email;
+  }
+
+  const updatedUser = await User.findOneAndUpdate({ _id: userId }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!updatedUser) {
+    throw new NotFoundError(`No user found with ID ${userId}`);
+  }
+
+  res.status(StatusCodes.OK).json({
+    id: updatedUser.sid,
+    firstName: updatedUser.firstName,
+    lastName: updatedUser.lastName,
+    email: updatedUser.email,
+    type: updatedUser.type,
+    status: updatedUser.status,
+    mobile: updatedUser.mobile,
+    dateOfBirth: updatedUser.dateOfBirth,
+  });
+};
+
+module.exports = { addUser, getUser, getAllUsers, updateUser };
