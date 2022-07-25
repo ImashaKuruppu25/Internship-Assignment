@@ -1,13 +1,14 @@
 const express = require("express");
-const cors = require("cors");
+require("express-async-errors");
+const app = express();
 require("dotenv").config();
+const cors = require("cors");
 const connectDB = require("./db/connect");
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 const noteRoute = require("./routes/noteRoute");
+const errorHandlerMiddleware = require("./middleware/errorHandler");
 const { authenticateAdmin } = require("./middleware/authenticater");
-
-const app = express();
 
 app.use(express.json());
 app.use(cors());
@@ -16,6 +17,9 @@ app.use(cors());
 app.use("/api/user", authenticateAdmin, userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/note", noteRoute);
+
+//error handler middleware
+app.use(errorHandlerMiddleware);
 
 const start = async () => {
   port = process.env.PORT;
