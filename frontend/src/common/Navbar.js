@@ -9,10 +9,11 @@ const Navbar = () => {
   return (
     <div className="container">
       <CgNotes className="logo-icon" />
-      <h1 className="logo" onClick={() => navigate("/")}>
+      <h1 className="logo" onClick={() => navigate("/")} style={{cursor:"pointer"}}>
         {" "}
         NOTES
       </h1>
+      
     </div>
   );
 };

@@ -38,10 +38,14 @@ const Login = () => {
   };
   return (
     <Container maxWidth="sm">
-      <Box sx={{ bgcolor: "#cfe8fc", height: "80vh" }}>
-        <h1>Login</h1>
-        <form onSubmit={submitHandler}>
+      <Box sx={{ height: "80vh" }}>
+        <h1 style={{ textAlign: "center" ,fontSize:"3rem"}}>Login</h1>
+        <p style={{ textAlign: "center",marginTop:"-2rem",letterSpacing:"0.5rem" }}>
+          Welcome to the <span style={{ color: "red" }}>notes</span>.
+        </p>
+        <form onSubmit={submitHandler} className="login-container">
           <label>Email Address</label>
+          <br />
           <input
             type="email"
             placeholder="Enter a valid email address"
@@ -49,7 +53,10 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <br />
+          <br />
+
           <label>Password</label>
+          <br />
           <input
             type="password"
             placeholder="Enter password"
@@ -57,7 +64,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
-          <input type="submit" />
+          <br />
+          <input type="submit" className="submit-btn" />
         </form>
       </Box>
     </Container>

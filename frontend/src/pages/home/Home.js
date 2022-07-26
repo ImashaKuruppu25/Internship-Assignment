@@ -3,6 +3,9 @@ import { useSelector } from "react-redux";
 import { authActions } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Users from "../users/Users";
+import UpdateUser from "../users/UpdateUser";
+import MyNotes from "../notes/MyNotes";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,9 +15,10 @@ const Home = () => {
   const userStatus = useSelector((state) => state.auth.userStatus);
 
   return (
-    <div>
+    <div className="home-container">
       {isLoggedIn ? (
         <button
+          className="logout-btn"
           onClick={() => {
             dispatch(authActions.logout());
             navigate("/");
@@ -23,23 +27,26 @@ const Home = () => {
           Logout
         </button>
       ) : (
-        ""
+        <button
+          className="logout-btn"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Login
+        </button>
       )}
 
       {isLoggedIn && userType === "Admin" ? (
-        <button onClick={() => navigate("/users")}>Users</button>
+        <Users />
       ) : isLoggedIn && userType === "Student" && userStatus === true ? (
-        <button onClick={() => navigate("/updateUser")}>Update Profile</button>
+        <UpdateUser />
       ) : isLoggedIn && userType === "Student" && userStatus === false ? (
-        <button onClick={() => navigate("/notes")}>Notes</button>
+        <MyNotes />
       ) : (
         ""
       )}
-      {!isLoggedIn ? (
-        <button onClick={() => navigate("/login")}>Login</button>
-      ) : (
-        ""
-      )}
+      {/* {!isLoggedIn ? <Home /> : ""} */}
     </div>
   );
 };
