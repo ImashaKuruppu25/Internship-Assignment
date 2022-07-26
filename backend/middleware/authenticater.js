@@ -17,9 +17,14 @@ const authenticateAdmin = async (req, res, next) => {
   } catch (error) {
     throw new UnAuthenticatedError("Authentication invalid");
   }
+  // console.log(payload);
 
   if (payload && (payload.type === "Admin" || payload.type === "Student")) {
-    req.user = { userId: payload.userId, type: payload.type };
+    req.user = {
+      userId: payload.userId,
+      type: payload.type,
+      userStatus: payload.status,
+    };
     next();
   } else {
     throw new NotAllowedError("You're unauthorized to access this route");

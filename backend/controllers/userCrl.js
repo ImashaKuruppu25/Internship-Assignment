@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const bcrypt = require("bcryptjs");
 const { StatusCodes } = require("http-status-codes");
 const nodemailer = require("nodemailer");
 const NotAllowedError = require("../errors/NotAllowedError");
@@ -28,8 +29,8 @@ const addUser = async (req, res) => {
     from: '"Imasha Kuruppu👻" <kuruppu@example.com>', // sender address
     to: `${req.body.email}`, // list of receivers
     subject: "User Registration ✔", // Subject line
-    text: `Click below link to login to the system. your password:${req.body.password} `, // plain text body
-    html: `<button>Login</button>`, // html body
+    text: ` `, // plain text body
+    html: `<p>Click <a href="http://localhost:3000/login">here</a> to login to account. your password:${req.body.password}</p>`, // html body
   };
 
   // send mail with defined transport object
@@ -63,10 +64,6 @@ const getUser = async (req, res) => {
 
   if (!user) {
     throw new NotFoundError(`No user found`);
-  } else {
-    if (requesterType === "Student") {
-      throw new NotAllowedError("You're not authorized access ");
-    }
   }
 
   res.status(StatusCodes.OK).json({
@@ -74,6 +71,28 @@ const getUser = async (req, res) => {
     name: user.firstName,
     email: user.email,
     type: user.type,
+  });
+};
+const getUserById = async (req, res) => {
+  const {
+    params: { id: userId },
+  } = req;
+
+  const user = await User.findOne({
+    _id: userId,
+  });
+
+  if (!user) {
+    throw new NotFoundError(`No user found with ID ${userId}`);
+  }
+
+  res.status(StatusCodes.OK).json({
+    _id: user._id,
+    sid: user.sid,
+    name: user.firstName,
+    email: user.email,
+    status: user.status,
+    password: user.password,
   });
 };
 
@@ -109,10 +128,26 @@ const updateUser = async (req, res) => {
     delete req.body.email;
   }
 
-  const updatedUser = await User.findOneAndUpdate({ _id: userId }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const salt = await bcrypt.genSalt(10);
+  const newPassword = await bcrypt.hash(req.body.password, salt);
+
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: userId },
+    {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      mobile: req.body.mobile,
+      dateOfBirth: req.body.dateOfBirth,
+      email: req.body.email,
+      status: req.body.status,
+      password: newPassword,
+    },
+
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!updatedUser) {
     throw new NotFoundError(`No user found with ID ${userId}`);
@@ -124,10 +159,10 @@ const updateUser = async (req, res) => {
     lastName: updatedUser.lastName,
     email: updatedUser.email,
     type: updatedUser.type,
-    status: updatedUser.status,
+    status: false,
     mobile: updatedUser.mobile,
     dateOfBirth: updatedUser.dateOfBirth,
   });
 };
 
-module.exports = { addUser, getUser, getAllUsers, updateUser };
+module.exports = { addUser, getUser, getUserById, getAllUsers, updateUser };

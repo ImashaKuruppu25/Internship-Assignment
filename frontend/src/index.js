@@ -9,6 +9,9 @@ import Navbar from "./common/Navbar";
 import Login from "./pages/login/Login";
 import Users from "./pages/users/Users";
 import Home from "./pages/home/Home";
+import MyNotes from "./pages/MyNotes";
+import AddUser from "./pages/users/AddUser";
+import UpdateUser from "./pages/users/UpdateUser";
 
 let persistor = persistStore(store);
 
@@ -23,6 +26,9 @@ root.render(
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/users" element={<Users />} />
+            <Route path="/notes" element={<MyNotes />} />
+            <Route path="/addUser" element={<AddUser />} />
+            <Route path="/updateUser" element={<UpdateUser />} />
           </Routes>
         </Router>
       </React.StrictMode>
