@@ -39,7 +39,7 @@ const Adduser = () => {
     <div>
       <h1 style={{ textAlign: "center" }}>Add User</h1>
       {loader ? (
-        <div style={{ alignItem: "center" }}>
+        <div style={{ marginLeft:"45%",marginTop:"40%" }}>
           <SyncLoader color="green" size={60} />
         </div>
       ) : (
