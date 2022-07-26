@@ -3,6 +3,8 @@ import { getApi } from "../../utils/axios";
 import { popAlert } from "../../utils/alert";
 import { useNavigate } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 
 const Adduser = () => {
   const navigate = useNavigate();
@@ -35,41 +37,51 @@ const Adduser = () => {
   };
   return (
     <div>
+      <h1 style={{ textAlign: "center" }}>Add User</h1>
       {loader ? (
-        <div>
+        <div style={{ alignItem: "center" }}>
           <SyncLoader color="green" size={60} />
         </div>
       ) : (
-        <form onSubmit={submitHandler}>
-          <label>Student ID</label>
-          <input
-            type="text"
-            placeholder="Enter a ID"
-            value={sid}
-            onChange={(e) => setsid(e.target.value)}
-          />
+        <Container maxWidth="sm">
+          <Box sx={{ height: "40vh" }}>
+            <form onSubmit={submitHandler} className="login-container">
+              <label>Student ID</label>
+              <input
+                type="text"
+                placeholder="Enter an unique ID"
+                value={sid}
+                onChange={(e) => setsid(e.target.value)}
+              />
 
-          <br />
-          <label>Email Address</label>
-          <input
-            type="email"
-            placeholder="Enter a valid email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
+              <br />
+              <label>Email Address</label>
+              <input
+                type="email"
+                placeholder="Enter a valid email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <br />
 
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br />
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <br />
 
-          <input type="submit" />
-        </form>
+              <input
+                type="submit"
+                className="submit-btn"
+                placeholder="sent email"
+                style={{ cursor: "pointer", marginTop: "3rem" }}
+              />
+            </form>
+          </Box>
+        </Container>
       )}
     </div>
   );

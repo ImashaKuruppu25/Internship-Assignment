@@ -39,8 +39,14 @@ const Login = () => {
   return (
     <Container maxWidth="sm">
       <Box sx={{ height: "80vh" }}>
-        <h1 style={{ textAlign: "center" ,fontSize:"3rem"}}>Login</h1>
-        <p style={{ textAlign: "center",marginTop:"-2rem",letterSpacing:"0.5rem" }}>
+        <h1 style={{ textAlign: "center", fontSize: "3rem" }}>Login</h1>
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "-2rem",
+            letterSpacing: "0.5rem",
+          }}
+        >
           Welcome to the <span style={{ color: "red" }}>notes</span>.
         </p>
         <form onSubmit={submitHandler} className="login-container">

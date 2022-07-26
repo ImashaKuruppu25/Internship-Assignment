@@ -7,8 +7,8 @@ const {
   getAllNotes,
 } = require("../controllers/noteCtr");
 
-router.route("/addNote").post(addNote);
-router.route("/getNotes").get(getAllNotes);
+router.route("/addNote/:id").post(addNote);
+router.route("/getNotes/:id").get(getAllNotes);
 router.route("/updateNote/:id").patch(updateNote);
 router.route("/deleteNote/:id").delete(deleteNote);
 

@@ -3,16 +3,25 @@ const { StatusCodes } = require("http-status-codes");
 const NotFoundError = require("../errors/NotFoundError");
 
 const addNote = async (req, res) => {
-  const note = await Note.create(req.body);
+  const note = await Note.create({
+    sid: req.params.id,
+    title: req.body.title,
+    description: req.body.description,
+  });
 
   res.status(StatusCodes.CREATED).json({
+    sid: note.sid,
     title: note.title,
     description: note.description,
   });
 };
 
 const getAllNotes = async (req, res) => {
-  const notes = await Note.find();
+  const notes = await Note.find({ sid: req.params.id });
+
+  if (!notes) {
+    res.status(StatusCodes.OK).json({ msg: "No notes available!" });
+  }
   res.status(StatusCodes.OK).json(notes);
 };
 
