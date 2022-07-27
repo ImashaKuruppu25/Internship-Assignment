@@ -8,7 +8,7 @@ export default function Popup(props) {
       <div className="popup-inner">
         <MdCancel
           color="red"
-          fontSize="large"
+          fontSize="30px"
           className="close-btn"
           onClick={() => props.setTrigger(false)}
         >

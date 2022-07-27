@@ -13,6 +13,7 @@ import MyNotes from "./pages/notes/MyNotes";
 import AddUser from "./pages/users/AddUser";
 import UpdateUser from "./pages/users/UpdateUser";
 import Background from "./assets/background.jpg";
+import AddNotes from "./pages/notes/AddNotes";
 
 let persistor = persistStore(store);
 
@@ -40,6 +41,7 @@ root.render(
               <Route path="/notes" element={<MyNotes />} />
               <Route path="/addUser" element={<AddUser />} />
               <Route path="/updateUser" element={<UpdateUser />} />
+              <Route path="/addNote" element={<AddNotes />} />
             </Routes>
           </Router>
         </React.StrictMode>

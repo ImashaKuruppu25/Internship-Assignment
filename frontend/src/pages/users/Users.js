@@ -14,6 +14,7 @@ const Users = () => {
   const [refresh, setRefresh] = useState(false);
   const [loader, setLoader] = useState(false);
   const [popBtn, setPopBtn] = useState(false);
+  const [popupUser, setPopupUser] = useState({});
 
   useEffect(() => {
     setLoader(true);
@@ -89,7 +90,22 @@ const Users = () => {
           {users.map((user) => {
             return (
               <div key={user.sid}>
-                <div className="grid-item" onClick={() => setPopBtn(true)}>
+                <div
+                style={{cursor:"pointer"}}
+                  className="grid-item"
+                  onClick={() => {
+                    setPopBtn(true);
+                    setPopupUser({
+                      fname: user.firstName,
+                      lname: user.lastName,
+                      email: user.email,
+                      dofb: user.dateOfBirth,
+                      mobile: user.mobile,
+                      sid: user.sid,
+                      status: user.status,
+                    });
+                  }}
+                >
                   <p>
                     <span style={{ fontWeight: "bold" }}>id </span> - {user.sid}
                   </p>
@@ -116,14 +132,37 @@ const Users = () => {
         </div>
       )}
       <Popup trigger={popBtn} setTrigger={setPopBtn}>
-        <h2>User Details</h2>
-        <h2>Student ID {users.email}</h2>
-        <h2>First Name</h2>
-        <h2>Last Name</h2>
-        <h2>Email</h2>
-        <h2>Mobile</h2>
-        <h2>Date of Birth</h2>
-        <h2>Status</h2>
+        <h2 style={{ textAlign: "center" }}>User Details</h2>
+        <h3>
+          <span style={{ fontWeight: "400" }}>Student ID -</span>{" "}
+          {popupUser.sid}
+        </h3>
+        <h3>
+          {" "}
+          <span style={{ fontWeight: "400" }}>Email -</span> {popupUser.email}
+        </h3>
+        <h3>
+          <span style={{ fontWeight: "400" }}>First Name -</span>{" "}
+          {popupUser.fname}
+        </h3>
+        <h3>
+          <span style={{ fontWeight: "400" }}>Last Name -</span>{" "}
+          {popupUser.lname}
+        </h3>
+        <h3>
+          <span style={{ fontWeight: "400" }}>Mobile -</span> {popupUser.mobile}
+        </h3>
+        <h3>
+          <span style={{ fontWeight: "400" }}>Date of Birth -</span>{" "}
+          {popupUser.dofb}
+        </h3>
+        <h3>
+          {popupUser.status === true ? (
+            <span style={{ fontWeight: "400" }}>Status - Not Updated</span>
+          ) : (
+            <span style={{ fontWeight: "400" }}>Status - Updated</span>
+          )}
+        </h3>
       </Popup>
     </div>
   );

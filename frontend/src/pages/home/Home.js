@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Users from "../users/Users";
 import UpdateUser from "../users/UpdateUser";
 import MyNotes from "../notes/MyNotes";
+import Login from "../login/Login";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -27,14 +28,17 @@ const Home = () => {
           Logout
         </button>
       ) : (
-        <button
-          className="logout-btn"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Login
-        </button>
+        <>
+          <button
+            className="logout-btn"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login
+          </button>
+          <Login />
+        </>
       )}
 
       {isLoggedIn && userType === "Admin" ? (
