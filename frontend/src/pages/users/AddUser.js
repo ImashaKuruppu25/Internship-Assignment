@@ -23,7 +23,7 @@ const Adduser = () => {
         password,
       })
       .then((res) => {
-        popAlert("Success!", "User Added Successfuly", "success", "Ok").then(
+        popAlert("Success!", "User Added Successfully", "success", "Ok").then(
           (res) => {
             navigate("/users");
             setLoader(false);

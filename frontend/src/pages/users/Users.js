@@ -11,7 +11,7 @@ const Users = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [key, setKey] = useState("");
-  const [refresh, setRefresh] = useState(false);
+  // const [refresh, setRefresh] = useState(false);
   const [loader, setLoader] = useState(false);
   const [popBtn, setPopBtn] = useState(false);
   const [popupUser, setPopupUser] = useState({});
@@ -41,7 +41,7 @@ const Users = () => {
     };
 
     getUsers();
-  }, [key, refresh]);
+  }, [key]);
 
   return (
     <div>
@@ -65,6 +65,7 @@ const Users = () => {
               borderRadius: "5px",
               fontFamily: "poppins",
             }}
+            onChange={(e) => setKey(e.target.value)}
           />
           <BiSearchAlt
             fontSize={35}
@@ -73,7 +74,6 @@ const Users = () => {
               marginLeft: "1rem",
               cursor: "pointer",
             }}
-            onChange={(e) => setKey(e.target.value)}
           />
         </div>
         <button className="adduser-btn" onClick={() => navigate("/addUser")}>
@@ -91,7 +91,7 @@ const Users = () => {
             return (
               <div key={user.sid}>
                 <div
-                style={{cursor:"pointer"}}
+                  style={{ cursor: "pointer" }}
                   className="grid-item"
                   onClick={() => {
                     setPopBtn(true);

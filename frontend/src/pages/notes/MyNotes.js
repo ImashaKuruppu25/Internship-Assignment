@@ -43,7 +43,7 @@ const MyNotes = () => {
     };
 
     getNotes();
-  }, []);
+  }, [id]);
 
   const deleteNote = (id) => {
     getApi()

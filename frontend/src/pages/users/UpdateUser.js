@@ -2,24 +2,24 @@ import React, { useState, useEffect } from "react";
 import { getApi } from "../../utils/axios";
 import { popAlert } from "../../utils/alert";
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 
 const UpdateUser = () => {
-  const location = useLocation();
+  
   const navigate = useNavigate();
   const id = useSelector((state) => state.auth.userId);
 
-  const [sid, setSid] = useState("");
+  // const [sid, setSid] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [mobile, setMobile] = useState("");
-  const [status, setStatus] = useState("User");
+  // const [status, setStatus] = useState("User");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const UpdateUser = () => {
         .get(`/user/${id}`)
 
         .then((res) => {
-          setSid(res.data.sid);
+          // setSid(res.data.sid);
           setFirstName(res.data.name);
           setEmail(res.data.email);
-          setStatus(res.data.status);
+          // setStatus(res.data.status);
         })
         .catch((err) => {
           popAlert("Error!", err.response.data.message, "error", "ok");
@@ -45,7 +45,7 @@ const UpdateUser = () => {
     };
 
     getUser();
-  }, []);
+  }, [id]);
 
   const submitHandler = (e) => {
     e.preventDefault();
